@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 const AuthContext=React.createContext({
     token: '',
@@ -25,6 +25,11 @@ export const AuthContextProvider=(props)=>{
         login:loginHandler,
         logout:logoutHandler
     }
+    useEffect(()=>{
+        setTimeout(()=>{
+            localStorage.removeItem('token')
+        }, 300000)
+    },[token])
     return (
         <AuthContext.Provider value={contextValue}>{props.children}</AuthContext.Provider>
     )
