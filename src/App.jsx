@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext} from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Layout from './components/Layout/Layout';
@@ -18,7 +18,7 @@ function App() {
         {!authCtx.isLoggedIn && <Route path='/auth'>
           <AuthPage />
         </Route>}
-{authCtx.isLoggedIn && <Route path='/profile'>
+          {authCtx.isLoggedIn && <Route path='/profile'>
           <UserProfile />
         </Route>}
         <Route path='*'>
