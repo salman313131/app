@@ -1,9 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useContext } from 'react';
 
 import classes from './AuthForm.module.css';
+import AuthContext from '../../store/auth-context';
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const authCtx = useContext(AuthContext)
   const emailInputRef = useRef()
   const passwordInputRef = useRef()
   const switchAuthModeHandler = () => {
@@ -26,7 +28,7 @@ const AuthForm = () => {
       }).then(res=>{
         if(res.ok){
           res.json().then(data=>{
-            console.log(data)
+            authCtx.login(data.idToken)
           })
         }else{
           return res.json().then((data)=>{
