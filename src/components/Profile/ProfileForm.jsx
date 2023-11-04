@@ -1,9 +1,11 @@
 import { useContext, useRef } from 'react';
 import AuthContext from '../../store/auth-context';
 import classes from './ProfileForm.module.css';
+import { useHistory } from 'react-router-dom';
 
 const ProfileForm = () => {
   const authCtx = useContext(AuthContext)
+  const history = useHistory()
   const newPassword = useRef()
   const onSubmitHandler=(e)=>{
     e.preventDefault()
@@ -11,16 +13,17 @@ const ProfileForm = () => {
     fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDYjaLcAC5qmLJlbncFS7ReOiqRNXFDyBg',
     {
       method:'POST',
-      body: {
+      body: JSON.stringify({
         idToken:authCtx.token,
         password:enteredNewPassword,
         returnSecureToken:true
-      },
+      }),
       headers: {
         'Content-Type':'application/json'
       }
     }).then(res=>{
       console.log(res)
+      history.replace('/')
     }).catch(err=>console.log(err))
   }
   return (
